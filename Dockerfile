@@ -5,6 +5,7 @@ WORKDIR /opt/app
 
 COPY webhook/requirements.txt /tmp/requirements.txt
 COPY webhook .
+
 # COPY alembic ./alembic
 # COPY alembic.ini .
 # COPY config.py ./alembic
