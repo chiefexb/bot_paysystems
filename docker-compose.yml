@@ -30,11 +30,11 @@ services:
     # networks:
     #   - app-tier
   webhook:
-    hostname: webhook
+    hostname: stripewebhook
     build:
       context: .
       dockerfile: Dockerfile.webhook
-    container_name: webhook
+    # container_name: webhook
     env_file:
       - .env
     # ports:
