@@ -3,6 +3,8 @@ import stripe
 from config import *
 from aiogram import Bot
 
+logging.basicConfig(level=logging.INFO)
+
 app = Flask(__name__)
 
 # Ваш секретный ключ Stripe
@@ -29,9 +31,11 @@ def webhook():
         )
     except ValueError as e:
         # Invalid payload
+        logging.error("Error")
         raise e
     except stripe.error.SignatureVerificationError as e:
         # Invalid signature
+        logging.error("Error")
         raise e
 
     # # Обработка события
@@ -40,11 +44,13 @@ def webhook():
     #     # Логика обработки успешной оплаты
     #     print(f"Payment succeeded: {payment_intent['id']}")
 
-
+    logging.info("EVENT",str(events))
     # В обработчике вебхука
     if event['type'] == 'payment_intent.succeeded':
         payment_intent = event['data']['object']
+
         user_id = payment_intent['metadata'].get('user_id')  # Сохраняйте user_id в метаданных
+        logging.info(f"Оплата прошла user_id {user_id}")
         if user_id:
              bot.send_message(user_id, "Оплата прошла успешно! Спасибо за покупку.")
 
