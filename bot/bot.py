@@ -10,11 +10,15 @@ from config import *
 logging.basicConfig(level=logging.INFO)
 
 # Инициализация бота и диспетчера
-API_TOKEN = BOT_TOKEN
+# API_TOKEN = BOT_TOKEN
 #STRIPE_SECRET_KEY = 'YOUR_STRIPE_SECRET_KEY'
 
-bot = Bot(token=API_TOKEN)
-dp = Dispatcher(bot)
+# bot = Bot(token=BOT_TOKEN)
+# dp = Dispatcher(bot)
+
+bot = Bot(token=BOT_TOKEN, parse_mode=ParseMode.HTML)  # Указываем parse_mode
+dp = Dispatcher()  # Создаем Dispatcher без аргументо
+
 
 # Инициализация Stripe
 stripe.api_key = STRIPE_SECRET_KEY
