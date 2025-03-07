@@ -34,11 +34,11 @@ def webhook():
         # Invalid signature
         raise e
 
-    # Обработка события
-    if event['type'] == 'payment_intent.succeeded':
-        payment_intent = event['data']['object']
-        # Логика обработки успешной оплаты
-        print(f"Payment succeeded: {payment_intent['id']}")
+    # # Обработка события
+    # if event['type'] == 'payment_intent.succeeded':
+    #     payment_intent = event['data']['object']
+    #     # Логика обработки успешной оплаты
+    #     print(f"Payment succeeded: {payment_intent['id']}")
 
 
     # В обработчике вебхука
