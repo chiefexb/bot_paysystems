@@ -2,9 +2,12 @@ import os
 import logging
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from aiogram.filters import Command
 from aiogram.enums import ParseMode
-# from aiogram.utils import executor
 import stripe
+
+# from aiogram.utils import executor
+
 from config import *
 
 # Настройка логирования
