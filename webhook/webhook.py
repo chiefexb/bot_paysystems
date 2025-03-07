@@ -46,7 +46,7 @@ def webhook():
         payment_intent = event['data']['object']
         user_id = payment_intent['metadata'].get('user_id')  # Сохраняйте user_id в метаданных
         if user_id:
-            await bot.send_message(user_id, "Оплата прошла успешно! Спасибо за покупку.")
+             bot.send_message(user_id, "Оплата прошла успешно! Спасибо за покупку.")
 
     return jsonify(success=True)
 
