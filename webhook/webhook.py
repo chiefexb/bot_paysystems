@@ -8,6 +8,8 @@ app = Flask(__name__)
 #STRIPE_SECRET_KEY = 'YOUR_STRIPE_SECRET_KEY'
 stripe.api_key = STRIPE_SECRET_KEY
 
+
+
 # Эндпоинт для вебхука
 @app.route('/webhook', methods=['POST'])
 def webhook():

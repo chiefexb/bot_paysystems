@@ -41,18 +41,48 @@ keyboard = ReplyKeyboardMarkup(
 async def send_welcome(message: types.Message):
     await message.reply("Привет! Я бот для оплаты через Stripe.", reply_markup=keyboard)
 
-# Обработчик кнопки "Оплата"
+
 @dp.message(lambda message: message.text == 'Оплата')
 async def process_payment(message: types.Message):
-    # Создаем платежное намерение (Payment Intent) в Stripe
+    # Создаем Payment Intent в Stripe
     payment_intent = stripe.PaymentIntent.create(
         amount=1000,  # Сумма в центах (10.00 USD)
         currency='usd',
         payment_method_types=['card'],
     )
 
-    # Отправляем клиенту ссылку на оплату
-    await message.reply(f"Оплатите 10.00 USD: {payment_intent['client_secret']}")
+    # Создаем сессию Stripe Checkout
+    checkout_session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=[{
+            'price_data': {
+                'currency': 'usd',
+                'product_data': {
+                    'name': 'Тестовый платеж',
+                },
+                'unit_amount': 1000,  # 10.00 USD
+            },
+            'quantity': 1,
+        }],
+        mode='payment',
+        success_url=f'{SITE_URL}/success',  # URL после успешной оплаты
+        cancel_url=f'{SITE_URL}/cancel',    # URL после отмены
+    )
+
+    # Отправляем пользователю ссылку на оплату
+    await message.reply(f"Оплатите 10.00 USD: {checkout_session.url}")
+# Обработчик кнопки "Оплата"
+# @dp.message(lambda message: message.text == 'Оплата')
+# async def process_payment(message: types.Message):
+#     # Создаем платежное намерение (Payment Intent) в Stripe
+#     payment_intent = stripe.PaymentIntent.create(
+#         amount=1000,  # Сумма в центах (10.00 USD)
+#         currency='usd',
+#         payment_method_types=['card'],
+#     )
+#
+#     # Отправляем клиенту ссылку на оплату
+#     await message.reply(f"Оплатите 10.00 USD: {payment_intent['client_secret']}")
 
 # Обработчик кнопки "Проверка оплаты"
 @dp.message(lambda message: message.text == 'Проверка оплаты')

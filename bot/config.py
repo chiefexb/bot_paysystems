@@ -14,6 +14,7 @@ DB_NAME = os.getenv('MYSQL_DATABASE')
 DB_USER = os.getenv('DB_USER')
 DB_HOST = os.getenv('DB_HOST')
 
+SITE_URL=os.getenv('SITE_URL')
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 
 PAYPAL_CLIENT_ID = os.getenv('PAYPAL_CLIENT_ID')
