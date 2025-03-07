@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import stripe
 from config import *
+from aiogram import Bot
 
 app = Flask(__name__)
 
@@ -8,6 +9,11 @@ app = Flask(__name__)
 #STRIPE_SECRET_KEY = 'YOUR_STRIPE_SECRET_KEY'
 stripe.api_key = STRIPE_SECRET_KEY
 
+
+
+# Инициализация бота
+# BOT_TOKEN = 'YOUR_TELEGRAM_BOT_TOKEN'
+bot = Bot(token=BOT_TOKEN)
 
 
 # Эндпоинт для вебхука
@@ -33,6 +39,14 @@ def webhook():
         payment_intent = event['data']['object']
         # Логика обработки успешной оплаты
         print(f"Payment succeeded: {payment_intent['id']}")
+
+
+    # В обработчике вебхука
+    if event['type'] == 'payment_intent.succeeded':
+        payment_intent = event['data']['object']
+        user_id = payment_intent['metadata'].get('user_id')  # Сохраняйте user_id в метаданных
+        if user_id:
+            await bot.send_message(user_id, "Оплата прошла успешно! Спасибо за покупку.")
 
     return jsonify(success=True)
 
