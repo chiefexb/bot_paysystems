@@ -3,8 +3,11 @@ EXPOSE 4242
 ENV HOME=/opt/app
 WORKDIR /opt/app
 
-COPY bot/requirements.txt /tmp/requirements.txt
-COPY bot .
+# COPY bot/requirements.txt /tmp/requirements.txt
+# COPY bot .
+COPY webhook/requirements.txt /tmp/requirements.txt
+COPY webhook .
+
 
 # COPY alembic ./alembic
 # COPY alembic.ini .

@@ -3,8 +3,11 @@ EXPOSE 8000
 ENV HOME=/opt/app
 WORKDIR /opt/app
 
-COPY webhook/requirements.txt /tmp/requirements.txt
-COPY webhook .
+# COPY webhook/requirements.txt /tmp/requirements.txt
+# COPY webhook .
+
+COPY bot/requirements.txt /tmp/requirements.txt
+COPY bot .
 
 # COPY alembic ./alembic
 # COPY alembic.ini .
