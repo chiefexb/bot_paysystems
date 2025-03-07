@@ -25,17 +25,21 @@ dp = Dispatcher()  # Создаем Dispatcher без аргументо
 stripe.api_key = STRIPE_SECRET_KEY
 
 # Создание клавиатуры с кнопками
-keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
-keyboard.add(KeyboardButton('Оплата'))
-keyboard.add(KeyboardButton('Проверка оплаты'))
+keyboard = ReplyKeyboardMarkup(
+    keyboard=[
+        [KeyboardButton(text='Оплата')],
+        [KeyboardButton(text='Проверка оплаты')]
+    ],
+    resize_keyboard=True
+)
 
 # Обработчик команды /start
-@dp.message_handler(commands=['start'])
+@dp.message(Command("start"))
 async def send_welcome(message: types.Message):
     await message.reply("Привет! Я бот для оплаты через Stripe.", reply_markup=keyboard)
 
 # Обработчик кнопки "Оплата"
-@dp.message_handler(lambda message: message.text == 'Оплата')
+@dp.message(lambda message: message.text == 'Оплата')
 async def process_payment(message: types.Message):
     # Создаем платежное намерение (Payment Intent) в Stripe
     payment_intent = stripe.PaymentIntent.create(
@@ -48,11 +52,12 @@ async def process_payment(message: types.Message):
     await message.reply(f"Оплатите 10.00 USD: {payment_intent['client_secret']}")
 
 # Обработчик кнопки "Проверка оплаты"
-@dp.message_handler(lambda message: message.text == 'Проверка оплаты')
+@dp.message(lambda message: message.text == 'Проверка оплаты')
 async def check_payment(message: types.Message):
     # Здесь можно реализовать логику проверки оплаты
     # Например, запрос к Stripe API для проверки статуса платежа
     await message.reply("Проверка оплаты...")
+
 
 # Запуск бота
 async def main():
