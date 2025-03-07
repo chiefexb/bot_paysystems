@@ -4,8 +4,8 @@ ENV HOME=/opt/app
 WORKDIR /opt/app
 
 COPY bot/requirements.txt /tmp/requirements.txt
-COPY bot
-.
+COPY bot .
+
 # COPY alembic ./alembic
 # COPY alembic.ini .
 # COPY config.py ./alembic
