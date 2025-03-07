@@ -2,7 +2,7 @@ import os
 import logging
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
-from aiogram.utils import executor
+# from aiogram.utils import executor
 import stripe
 from config import *
 
@@ -50,5 +50,9 @@ async def check_payment(message: types.Message):
     await message.reply("Проверка оплаты...")
 
 # Запуск бота
+async def main():
+    await dp.start_polling(bot)
+
 if __name__ == '__main__':
-    executor.start_polling(dp, skip_updates=True)
+    import asyncio
+    asyncio.run(main())
