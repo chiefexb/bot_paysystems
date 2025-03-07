@@ -1,0 +1,17 @@
+BOT_TOKEN=1719119168:AAEOmVhNsB2NJ-X399yi0oJpx3HfF7oZ_Vc
+DB_HOST=mysql
+DB_PORT=3306
+DB_USER=root
+MYSQL_ROOT_PASSWORD=12345678
+MYSQL_DATABASE=mydb
+PAYPAL_CLIENT_ID=your_paypal_client_id
+PAYPAL_CLIENT_SECRET=your_paypal_client_secret
+REDIS_HOST=redis
+REDIS_PASS=12345678
+GALLERY_CHANNEL=your_gallery_channel_id
+PARTNER_ID=your_paypal_partner_id
+DEV_ID=your_telegram_id
+USERNAME_BOT=your_bot_username
+
+STRIPE_PUBLIC_KEY=stripe_pub_key
+STRIPE_SECRET_KEY=stripe_secret_key
