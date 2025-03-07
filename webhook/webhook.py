@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 import stripe
 from config import *
 from aiogram import Bot
+import logging
 
 logging.basicConfig(level=logging.INFO)
 
