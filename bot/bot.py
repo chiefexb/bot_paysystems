@@ -16,8 +16,8 @@ logging.basicConfig(level=logging.INFO)
 
 # bot = Bot(token=BOT_TOKEN)
 # dp = Dispatcher(bot)
-
-bot = Bot(token=BOT_TOKEN, parse_mode=ParseMode.HTML)  # Указываем parse_mode
+#parse_mode=ParseMode.HTML
+bot = Bot(token=BOT_TOKEN)  # Указываем parse_mode
 dp = Dispatcher()  # Создаем Dispatcher без аргументо
 
 
