@@ -45,7 +45,7 @@ def webhook():
     #     # Логика обработки успешной оплаты
     #     print(f"Payment succeeded: {payment_intent['id']}")
 
-    logging.info("EVENT",str(events))
+    logging.info("EVENT",str(event))
     #
     # В обработчике вебхука
     if event['type'] == 'payment_intent.succeeded':
