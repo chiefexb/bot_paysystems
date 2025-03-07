@@ -49,14 +49,14 @@ async def process_payment(message: types.Message):
         amount=1000,  # Сумма в центах (10.00 USD)
         currency='usd',
         payment_method_types=['card'],
+        metadata={
+            'user_id': message.from_user.id  # Сохраняем ID пользователя
+        },
     )
 
     # Создаем сессию Stripe Checkout
     checkout_session = stripe.checkout.Session.create(
         payment_method_types=['card'],
-        metadata={
-            'user_id': message.from_user.id  # Сохраняем ID пользователя
-        },
         line_items=[{
             'price_data': {
                 'currency': 'usd',
