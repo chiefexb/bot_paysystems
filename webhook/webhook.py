@@ -46,16 +46,18 @@ def webhook():
     #     # Логика обработки успешной оплаты
     #     print(f"Payment succeeded: {payment_intent['id']}")
 
-    logging.info("EVENT",json.dumps(event))
-    #
-    # В обработчике вебхука
-    if event['type'] == 'payment_intent.succeeded':
-        payment_intent = event['data']['object']
+    # Логирование всего события
+    logging.info("EVENT: %s", json.dumps(event, indent=2))
 
-        user_id = payment_intent['metadata'].get('user_id')  # Сохраняйте user_id в метаданных
+    # Обработка события
+    if event['type'] == 'checkout.session.completed':
+        session = event['data']['object']
+        user_id = session.get('client_reference_id')  # Получаем user_id
         logging.info(f"Оплата прошла user_id {user_id}")
+
         if user_id:
-             bot.send_message(user_id, "Оплата прошла успешно! Спасибо за покупку.")
+            # Отправляем сообщение пользователю в Telegram
+            bot.send_message(user_id, "Оплата прошла успешно! Спасибо за покупку.")
 
     return jsonify(success=True)
 
