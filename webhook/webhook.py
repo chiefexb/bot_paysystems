@@ -4,6 +4,7 @@ from config import *
 from aiogram import Bot
 import logging
 import json
+import asyncio
 
 logging.basicConfig(level=logging.INFO)
 
@@ -19,6 +20,13 @@ stripe.api_key = STRIPE_SECRET_KEY
 # BOT_TOKEN = 'YOUR_TELEGRAM_BOT_TOKEN'
 bot = Bot(token=BOT_TOKEN)
 
+#Асинхронная функция для отправки сообщения
+async def send_telegram_message(user_id, text):
+    await bot.send_message(user_id, text)
+
+# Синхронная обертка для запуска асинхронной функции
+def send_message_sync(user_id, text):
+    asyncio.run(send_telegram_message(user_id, text))
 
 # Эндпоинт для вебхука
 @app.route('/webhook', methods=['POST'])
