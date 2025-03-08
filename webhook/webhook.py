@@ -65,7 +65,7 @@ def webhook():
 
         if user_id:
             # Отправляем сообщение пользователю в Telegram
-            send_telegram_message_async(user_id, "Оплата прошла успешно! Спасибо за покупку.")
+            send_message_sync(user_id, "Оплата прошла успешно! Спасибо за покупку.")
 
 
     return jsonify(success=True)
