@@ -28,6 +28,39 @@ async def send_telegram_message(user_id, text):
 def send_message_sync(user_id, text):
     asyncio.run(send_telegram_message(user_id, text))
 
+# Эндпоинт для успешной оплаты
+@app.route('/success', methods=['GET'])
+def success():
+    # Получаем session_id из query-параметров
+    session_id = request.args.get('session_id')
+
+    if not session_id:
+        return "Ошибка: session_id не указан.", 400
+
+    try:
+        # Получаем данные о сессии из Stripe
+        checkout_session = stripe.checkout.Session.retrieve(session_id)
+
+        # Пример данных, которые можно использовать
+        payment_intent_id = checkout_session.payment_intent  # ID платежа
+        customer_email = checkout_session.customer_details.email  # Email покупателя
+        amount_total = checkout_session.amount_total / 100  # Сумма в валюте (например, USD)
+
+        # Здесь можно добавить логику, например:
+        # - Обновить статус заказа в базе данных
+        # - Отправить письмо с подтверждением
+        # - Записать данные в лог
+
+        # Отображаем страницу с благодарностью
+        return render_template('success.html',  # Шаблон страницы
+                               payment_intent_id=payment_intent_id,
+                               customer_email=customer_email,
+                               amount_total=amount_total)
+
+    except stripe.error.StripeError as e:
+        # Обработка ошибок Stripe
+        return f"Ошибка Stripe: {str(e)}", 500
+
 # Эндпоинт для вебхука
 @app.route('/webhook', methods=['POST'])
 def webhook():
