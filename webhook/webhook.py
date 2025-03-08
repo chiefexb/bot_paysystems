@@ -3,6 +3,7 @@ import stripe
 from config import *
 from aiogram import Bot
 import logging
+import json
 
 logging.basicConfig(level=logging.INFO)
 
@@ -45,7 +46,7 @@ def webhook():
     #     # Логика обработки успешной оплаты
     #     print(f"Payment succeeded: {payment_intent['id']}")
 
-    logging.info("EVENT",str(event))
+    logging.info("EVENT",json.dumps(event))
     #
     # В обработчике вебхука
     if event['type'] == 'payment_intent.succeeded':
