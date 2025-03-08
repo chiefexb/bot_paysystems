@@ -45,18 +45,21 @@ async def send_welcome(message: types.Message):
 @dp.message(lambda message: message.text == 'Оплата')
 async def process_payment(message: types.Message):
     # Создаем Payment Intent в Stripe
-    payment_intent = stripe.PaymentIntent.create(
-        amount=1000,  # Сумма в центах (10.00 USD)
-        currency='usd',
-        payment_method_types=['card'],
-        metadata={
-            'user_id': message.from_user.id  # Сохраняем ID пользователя
-        },
-    )
+    # payment_intent = stripe.PaymentIntent.create(
+    #     amount=1000,  # Сумма в центах (10.00 USD)
+    #     currency='usd',
+    #     payment_method_types=['card'],
+    #     metadata={
+    #         'user_id': message.from_user.id  # Сохраняем ID пользователя
+    #     },
+    # )
 
     # Создаем сессию Stripe Checkout
     checkout_session = stripe.checkout.Session.create(
         payment_method_types=['card'],
+         metadata={
+                'user_id': message.from_user.id  # Сохраняем ID пользователя
+            },
         line_items=[{
             'price_data': {
                 'currency': 'usd',
